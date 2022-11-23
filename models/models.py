@@ -3,6 +3,7 @@ import torch.nn as nn
 import torch.nn.functional as F
 import torch
 import os
+from loguru import logger
 
 
 def create_model(cfg):
@@ -23,10 +24,11 @@ def save_model(cfg, model, epoch, save_dir, device):
     if torch.cuda.is_available():
         torch.save(
             {
-                "net": model.module.cpu().state_dict(),
+                "net": model.state_dict(),
             },
             save_path,
         )
+        logger.info('save model -> '.format(model.state_dict()))
         net.to(device)
 
 

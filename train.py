@@ -87,7 +87,7 @@ if __name__ == "__main__":
                         writer.add_scalar('Loss/train', running_loss, global_steps)
                     else:
                         writer.add_scalar('Loss/val', running_loss, global_steps)
-                    logger.info(f"ExpName: {cfg.name} \nEpoch: {epoch}, Loss:{running_loss}, Steps: {global_steps}, Time: {datetime.now().strftime('%Y-%m-%d-%H:%M:%S')} \n")
+                    logger.info(f"ModelName: {cfg.name} \nEpoch: {epoch}, Loss:{running_loss}, Steps: {global_steps}, Time: {datetime.now().strftime('%Y-%m-%d-%H:%M:%S')} \n")
                    
 
             if phase == 'train':
@@ -96,7 +96,7 @@ if __name__ == "__main__":
                 val_dataset)
             epoch_loss = running_loss / dataset_sizes
             epoch_acc = running_corrects.double() / dataset_sizes
-            print('{} Loss: {:.4f} Acc: {:.4f}'.format(
+            logger.info('{} Loss: {:.4f} Acc: {:.4f}'.format(
                 phase, epoch_loss, epoch_acc))
            
         if epoch % 2 ==  0:
@@ -104,8 +104,6 @@ if __name__ == "__main__":
                 epoch, global_steps)
             logger.info(save_info)
             save_model(cfg=cfg,model=model,epoch=epoch,save_dir=dir_checkpoints,device=device)
-
-            logger.info(save_info)
 
     time_elapsed = time.time() - since
     print('Training complete in {:.0f}m {:.0f}s'.format(

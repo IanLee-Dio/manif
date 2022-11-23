@@ -50,7 +50,7 @@ class BaseConfig:
         parser.add_argument(
             "--print_freq",
             type=int,
-            default=10,
+            default=5,
             help="frequency of showing training results on console",
         )
         
